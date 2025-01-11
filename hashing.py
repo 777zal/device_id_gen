@@ -11,19 +11,14 @@ class Hashing:
 
     def __convert_int32_to_list(self, input:int):
         result_list = []
-        str_val = str(input)
-        # bytes_val = input.to_bytes(1, 'big')
-        byte_val = input.to_bytes(4, 'big')
-        print(isinstance(byte_val, bytes))
-        print(byte_val)
-        # hex_string = hex(input)
-        # print(hex_string)
-        # byte_array =bytes.fromhex(hex_string)
-        # print((byte_array))
+        str_val = f'{input:0x}'
+        for i in range (0,len(str_val),2):
+            result_list.append(''.join([str_val[i],str_val[i+1]]))
+        return result_list
         
 
-    def hash(self, input:bytearray):
+    def do_hash(self, input:bytearray):
         status  = self.__check_input(input)
-        self.__convert_int32_to_list(CityHash32(input))
+        return status, self.__convert_int32_to_list(CityHash32(input))
          
             
