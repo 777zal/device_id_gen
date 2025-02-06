@@ -1,9 +1,13 @@
 import subprocess
 from net_statement import NetSentence
 from hashing import Hashing
+from composer import Composer 
 
+cp = Composer("31")
+print("composing message")
+print(cp.compose_message("B6D1B27329DF", "0008"))
 hex_string = "31bbb6d1b27329df0008"
-hex_string = "31bb96623fff3f010007"
+# hex_string = "31bb96623fff3f010007"
 
 byte_values = bytes.fromhex(hex_string)
 print(byte_values)
@@ -11,7 +15,7 @@ print(byte_values)
 netif = NetSentence()
 hsa = Hashing()
 status, data = hsa.do_hash(byte_values)
-
+print(data)
 command = ['ip', '-brief', 'link']
 result = subprocess.check_output(command, text=True)
 # subprocess.run(command)
