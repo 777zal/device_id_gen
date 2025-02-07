@@ -3,19 +3,29 @@ from net_statement import NetSentence
 from hashing import Hashing
 from composer import Composer 
 
+command = ['adb', 'devices']
+result = subprocess.check_output(command, text=True)
+print(result)
+command = ['adb', 'shell', 'ip', '-brief', 'link']
+result = subprocess.check_output(command, text=True)
+print(result)
+
 cp = Composer("31")
+cp.setup_target_path("build.prop", "ro.deviceid")
 print("composing message")
-print(cp.compose_message("B6D1B27329DF", "0008"))
-hex_string = "31bbb6d1b27329df0008"
+id = cp.compose_id("B6D1B27329DF", "0008")
+cp.insert_id_to_config_file(id)
+
+# hex_string = "31bbb6d1b27329df0008"
 # hex_string = "31bb96623fff3f010007"
 
-byte_values = bytes.fromhex(hex_string)
-print(byte_values)
+# byte_values = bytes.fromhex(hex_string)
+# print(byte_values)
 
 netif = NetSentence()
 hsa = Hashing()
-status, data = hsa.do_hash(byte_values)
-print(data)
+# status, data = hsa.do_hash(byte_values)
+# print(data)
 command = ['ip', '-brief', 'link']
 result = subprocess.check_output(command, text=True)
 # subprocess.run(command)
