@@ -74,12 +74,13 @@ class Composer:
         msg_out = self.__convert_to_hexstring(result)
         return msg_out 
 
-    def setup_target_path(self, path:str, new_field:str):
+    def setup_target_path(self, path:str):
         self.__mPath = path
-        self.__id_field_name = new_field
         self.__convert_config_file_as_list(path)
-        
 
+    def set_new_field_name(self, new_field:str):
+        self.__id_field_name = new_field
+        
     def insert_id_to_config_file(self, device_id:str):
         row = self.__get_row_by_keyword(self.__id_field_name)
         new_id = '\n'+self.__id_field_name+'='+device_id
